@@ -20,17 +20,17 @@ app.use((req, res, next) => {
 	next();
 });
 
-app.get('/', (req, res) => {
+app.get('/movies', (req, res) => {
 	let movies = Movies;
 	let { genre, country, avg_vote } = req.query;
 	if (genre) {
-		movies = Movies.filter((movie) => movie.genre.toLowerCase().includes(genre.toLowerCase()));
+		movies = movies.filter((movie) => movie.genre.toLowerCase().includes(genre.toLowerCase()));
 	}
 	if (country) {
-		movies = Movies.filter((movie) => movie.country.toLowerCase().includes(country.toLowerCase()));
+		movies = movies.filter((movie) => movie.country.toLowerCase().includes(country.toLowerCase()));
 	}
 	if (avg_vote) {
-		movies = Movies.filter((movie) => movie.avg_vote >= avg_vote);
+		movies = movies.filter((movie) => movie.avg_vote >= avg_vote);
 	}
 	res.json(movies);
 });
