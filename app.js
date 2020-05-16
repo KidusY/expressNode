@@ -6,11 +6,15 @@ const helmet = require('helmet');
 const Movies = require('./movie.json');
 //express
 const app = express();
+const PORT = process.env.PORT || 8080;
+const morganSetting =
 
+		process.env.NODE_ENV === 'production' ? 'tiny' :
+		'common';
 //middleware
 app.use(helmet());
 app.use(cors());
-app.use(morgan('dev'));
+app.use(morgan(morganSetting));
 app.use((req, res, next) => {
 	const ourToken = process.env.API_TOKEN;
 	const usersToken = req.get('Authorization');
@@ -35,6 +39,6 @@ app.get('/movies', (req, res) => {
 	res.json(movies);
 });
 
-app.listen(8000, () => {
+app.listen(PORT, () => {
 	console.log('server running');
 });
